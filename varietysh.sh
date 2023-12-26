@@ -26,11 +26,10 @@ change_wallpaper() {
     wget -O $HOME/.varietysh/$filename $image 2> /dev/null
     
     gsettings set org.gnome.desktop.background picture-uri "file://$HOME/.varietysh/$filename"
-
 }
 
 while true; do
     change_wallpaper
-    sleep 120
+    sleep 600
 done
 
