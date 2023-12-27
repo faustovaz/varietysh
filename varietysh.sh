@@ -18,7 +18,7 @@ download_wallpapers_json() {
 
 download_wallpaper() {
     if [[ -e $VV_HOME/walls.json ]]; then
-        local short_url=$(grep -P -o '"short_url":".*?"' $VV_HOME/walls.json | cut -d '"' -f 4 | head -n 1 | tr -d '\\')
+        local wall_url=$(grep -P -o '"short_url":".*?"' $VV_HOME/walls.json | cut -d '"' -f 4 | head -n 1 | tr -d '\\')
         wget -o $VV_HOME/varietysh.log -O $VV_HOME/.img.html $wall_url 2> /dev/null
         if [ $? -eq 0 ]; then
             local image=$(grep -P -o 'id="wallpaper" src=".*?"' $VV_HOME/.img.html | cut -d " " -f 2 | cut -d "\"" -f 2)
@@ -33,6 +33,7 @@ varietysh() {
     mkdir -p $HOME/.varietysh
     check_commands
     download_wallpapers_json
+    download_wallpaper
 }
 
 while true; do
