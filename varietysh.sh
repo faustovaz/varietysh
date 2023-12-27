@@ -12,7 +12,7 @@ download_wallpapers_json() {
     local URL='https://wallhaven.cc/api/v1/search?sorting=random&atleast'
     wget -o $VV_HOME/varietysh.log -O $VV_HOME/walls.json $URL 2> /dev/null
     if [ $? -ne 0 ]; then
-        logger "Error: It was not possible to download wallpapers."
+        logger -t varietysh "Error: It was not possible to download wallpapers."
     fi
 }
 
