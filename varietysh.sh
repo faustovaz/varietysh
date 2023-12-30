@@ -20,7 +20,7 @@ dowload_json_from_api() {
         local now=$(date --date=now +%s)
         local time_delta=$(($now - $file_creation_time))
         if [[ $time_delta -gt $FILE_EXPIRATION_TIME ]]; then
-            wget -o $VV_HOME/varietysh.log -O $WALLPAPERS_JSON_FILE $URL 2> /dev/null
+            wget -o $VV_HOME/varietysh.log -O $WALLPAPERS_JSON_FILE $API_URL 2> /dev/null
             [ $? -ne 0 ] && logger -t varietysh "Error: It was not possible to download wallpapers at $API_URL"
         fi 
     else
@@ -43,7 +43,7 @@ download_and_set_wallpaper() {
         local link=${links[0]}
         unset links[0]
         links=("${links[@]}")
-        [[ ${#links[@]} -eq 0 ]] && rm -r $IMAGE_LINKS_FILE
+        [[ ${#links[@]} -eq 0 ]] && rm -r $IMAGES_LINKS_FILE
         [[ ${#links[@]} -ne 0 ]] && echo "${links[@]}" | tr " " "\n" > $IMAGES_LINKS_FILE
         wget -o $VV_HOME/varietysh.log -O $VV_HOME/.img.html $link 2> /dev/null
         if [[ $? -eq 0 ]]; then
