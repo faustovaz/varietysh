@@ -14,6 +14,11 @@ check_commands() {
     [ ! $(command -v stat) ] && echo "Error: stat not found" && exit 1
 }
 
+check_dirs() {
+    #TODO - add images dir param check and remove if size exceeds this param
+    mkdir -p $HOME/.varietysh
+}
+
 dowload_json_from_api() {
     if [ -e "$WALLPAPERS_JSON_FILE" ]; then
         local file_creation_time=$(date --date="$(stat "$WALLPAPERS_JSON_FILE" | grep "Birth" | cut -d " " -f3,4)" +%s)
@@ -58,8 +63,8 @@ download_and_set_wallpaper() {
 }
 
 varietysh() {
-    mkdir -p $HOME/.varietysh
     check_commands
+    check_dirs
     dowload_json_from_api
     generate_file_links
     download_and_set_wallpaper
